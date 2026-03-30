@@ -7,6 +7,7 @@
     "${modules}/programs/jujutsu"
     "${modules}/programs/neovim"
     "${modules}/programs/zsh"
+    "${modules}/workflows/claude-code"
     "${modules}/workflows/datadog"
     "${modules}/workflows/k8s"
   ];
@@ -71,6 +72,10 @@
       # Force the Nix binpaths to be first. This duplicates them in $PATH, but
       # I don't have a less dirty solution to this.
       export PATH="/Users/richard.morrill/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+
+      # Add the .local/bin directory to the $PATH, but put it last because
+      # otherwise it could interfere with Nix stuff.
+      export PATH="$PATH:$HOME/.local/bin"
 
       export GITLAB_TOKEN=$(security find-generic-password -a ''${USER} -s gitlab-token -w)
 

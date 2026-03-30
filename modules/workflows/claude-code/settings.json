@@ -1,0 +1,83 @@
+{
+  "permissions": {
+    "allow": [
+      "ListMcpResourcesTool",
+      "ReadMcpResourceTool",
+      "mcp__",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:platform.openai.com)",
+      "Bash(agent-jj:*)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "allowWrite": [
+        "/tmp",
+        "~/go",
+        "~/repos"
+      ],
+      "allowRead": [
+        "/tmp",
+        "~/go",
+        "~/repos"
+      ],
+    },
+    "excludedCommands": [
+      "docker:*",
+      "bzl:*",
+      "agent-jj:*"
+    ],
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "$__comment_0": "The sandbox inherits the domains within `WebFetch(...)` permission grants above.",
+      "allowedDomains": []
+    }
+  },
+  "model": "sonnet[1m]",
+  "enabledMcpjsonServers": [
+    "atlassian",
+    "dd-prod",
+    "dd-staging"
+  ],
+  "hooks": {
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/richard.morrill/.claude/hooks/jj-worktree-create"
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/richard.morrill/.claude/hooks/jj-worktree-remove"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "dd@datadog-claude-plugins": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "datadog-claude-plugins-dev": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/richard.morrill/dd/claude-marketplace/dev"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "autoUpdatesChannel": "latest"
+}
