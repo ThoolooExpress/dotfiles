@@ -16,5 +16,5 @@
   home.homeDirectory = "/home/bits";
   home.stateVersion = "26.05";
 
-  home.activation.backupFileExtension = "bak";
+  home.backupFileExtension = "bak";
 }
