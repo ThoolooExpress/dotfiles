@@ -1,8 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, modules, ... }:
 {
-  imports = [ ./common.nix ];
+  imports = [
+    "${modules}/common/home"
+    "${modules}/programs/atuin"
+    "${modules}/programs/eza"
+    "${modules}/programs/jujutsu"
+    "${modules}/programs/neovim"
+    "${modules}/programs/zsh"
+    "${modules}/workflows/claude-code"
+    "${modules}/workflows/datadog"
+    "${modules}/workflows/k8s"
+  ];
 
-  home.username = "dog";
-  home.homeDirectory = "/home/dog";
+  home.username = "bits";
+  home.homeDirectory = "/home/bits";
   home.stateVersion = "26.05";
 }
