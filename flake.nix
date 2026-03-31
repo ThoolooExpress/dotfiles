@@ -7,13 +7,27 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # gVisor is pinned because of a build issue in the unstable branch.
+    # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
+    pinnedGvisorVersion.url = "github:nixos/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      pinnedGvisorVersion,
+      ...
+    }:
+    # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
     let
+      pinnedGvisor = final: prev: {
+        gvisor = pinnedGvisorVersion.legacyPackages.${prev.system}.gvisor;
+      };
       lib = nixpkgs.lib;
-    in {
+    in
+    {
       homeConfigurations = {
         # "dd-mbp" (Work Mac)
         "richard.morrill@redacted" = home-manager.lib.homeManagerConfiguration {
@@ -35,7 +49,10 @@
 
         # "thooloocraft" (Personal Linux Server)
         "thoolooexpress@thooloocraft" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
           extraSpecialArgs = {
             modules = ./modules;
           };
@@ -49,7 +66,15 @@
           specialArgs = {
             modules = ./modules;
           };
-          modules = [ ./host/thooloocraft ];
+          modules = [
+            ./host/thooloocraft
+            (
+              { config, pkgs, ... }:
+              {
+                nixpkgs.overlays = [ pinnedGvisor ];
+              }
+            )
+          ];
         };
       };
     };
