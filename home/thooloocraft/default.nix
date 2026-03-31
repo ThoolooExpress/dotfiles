@@ -6,7 +6,6 @@
     "${modules}/programs/eza"
     "${modules}/programs/jujutsu"
     "${modules}/programs/neovim"
-    "${modules}/programs/vscode"
     "${modules}/programs/zsh"
     "${modules}/workflows/personal-development"
   ];
