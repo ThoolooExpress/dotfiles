@@ -6,10 +6,10 @@
 {
   programs.vscode = {
     enable = true;
-  };
 
-  extensions = with pkgs.vscode-extensions; {
-    jjk.jjk
-    jnoortheen.nix-ide
-  }
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      jjk.jjk
+      jnoortheen.nix-ide
+    ];
+  };
 }
