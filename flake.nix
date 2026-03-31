@@ -11,12 +11,9 @@
 
   outputs =
     { nixpkgs, home-manager, ... }:
-    {
-      # Nixpkgs configuration
-      nixpkgsConfig = {
-        allowUnfree = true;
-      };
-
+    let
+      lib = nixpkgs.lib;
+    in {
       homeConfigurations = {
         # "dd-mbp" (Work Mac)
         "richard.morrill@redacted" = home-manager.lib.homeManagerConfiguration {
@@ -31,6 +28,25 @@
         "dog@richard-morrill" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           modules = [ ./home/dd-workspace ];
+        };
+
+        # "thooloocraft" (Personal Linux Server)
+        "thoolooexpress@thooloocraft" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
+          extraSpecialArgs = {
+            modules = ./modules;
+          };
+          modules = [ ./home/thooloocraft ];
+        };
+      };
+
+      nixosConfigurations = {
+        thooloocraft = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            modules = ./modules;
+          };
+          modules = [ ./host/thooloocraft ];
         };
       };
     };

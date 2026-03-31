@@ -1,7 +1,7 @@
 { pkgs, modules, ... }:
 {
   imports = [
-    "${modules}/common"
+    "${modules}/common/home"
     "${modules}/programs/atuin"
     "${modules}/programs/eza"
     "${modules}/programs/jujutsu"
