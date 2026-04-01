@@ -15,13 +15,15 @@
     ./hardware-configuration.nix
     "${modules}/common/host"
     "${modules}/programs/podman"
+    "${modules}/services/avahi"
     "${modules}/services/crafty-controller"
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   networking = {
     hostName = "thooloocraft";
@@ -45,7 +47,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.ports = [ 8022 ];
   services.openssh.settings = {
     AllowAgentForwarding = true;
     PasswordAuthentication = false;
@@ -54,7 +55,7 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8022 ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   # TODO: Consider removing this once I no longer need vscode-remote.
   programs.nix-ld.enable = true;
