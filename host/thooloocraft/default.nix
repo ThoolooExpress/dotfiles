@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     "${modules}/common/host"
     "${modules}/programs/podman"
+    "${modules}/services/crafty-controller"
   ];
 
   # Bootloader.
