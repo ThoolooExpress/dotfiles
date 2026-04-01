@@ -6,6 +6,7 @@
   config,
   pkgs,
   modules,
+  secrets,
   ...
 }:
 
@@ -59,6 +60,19 @@
 
   # TODO: Consider removing this once I no longer need vscode-remote.
   programs.nix-ld.enable = true;
+
+  # Configure automatic Cloudflare DNS updates
+  age.secrets.cloudflare-dns-thooloocraft-token.file = "${secrets}/cloudflare-dns-thooloocraft-token.age";
+  services.ddclient = {
+    enable = true;
+    interval = "5min";
+    protocol = "cloudflare";
+    username = "token";
+    passwordFile = config.age.secrets.cloudflare-dns-thooloocraft-token.path;
+    domains = [ "fuck-dynasty.thoolooexpress.com" ];
+    zone = "thoolooexpress.com";
+    ssl = true;
+  };
 
   system.stateVersion = "25.11"; # Did you read the comment?
 }

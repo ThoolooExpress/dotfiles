@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
     # gVisor is pinned because of a build issue in the unstable branch.
     # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
     pinnedGvisorVersion.url = "github:nixos/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
@@ -18,6 +19,7 @@
       nixpkgs,
       home-manager,
       pinnedGvisorVersion,
+      agenix,
       ...
     }:
     # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
@@ -56,7 +58,9 @@
           extraSpecialArgs = {
             modules = ./modules;
           };
-          modules = [ ./home/thooloocraft ];
+          modules = [
+            ./home/thooloocraft
+          ];
         };
       };
 
@@ -65,6 +69,7 @@
           system = "x86_64-linux";
           specialArgs = {
             modules = ./modules;
+            secrets = ./secrets;
           };
           modules = [
             ./host/thooloocraft
@@ -74,6 +79,10 @@
                 nixpkgs.overlays = [ pinnedGvisor ];
               }
             )
+            agenix.nixosModules.default
+            {
+              environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
+            }
           ];
         };
       };
