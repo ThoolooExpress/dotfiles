@@ -1,8 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Set dvorak keymap
@@ -10,11 +6,8 @@
     layout = "us";
     variant = "dvorak";
   };
+
   console.keyMap = "dvorak";
-
-
-  # 
-  security.sudo.wheelNeedsPassword = false;
   users.mutableUsers = false;
 
   # My personal user account
@@ -44,4 +37,9 @@
   # ZSH Shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  # Set up SSH sudo
+  security.sudo.enable = true;
+  security.pam.sshAgentAuth.enable = true;
+  security.pam.services.sudo.sshAgentAuth = true;
 }

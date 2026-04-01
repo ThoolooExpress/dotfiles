@@ -49,6 +49,8 @@
   services.openssh.settings = {
     AllowAgentForwarding = true;
     PasswordAuthentication = false;
+    PermitRootLogin = "no";
+    KbdInteractiveAuthentication = false;
   };
 
   # Open ports in the firewall.
