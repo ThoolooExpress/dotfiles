@@ -1,5 +1,17 @@
 { pkgs, modules, ... }:
 {
+  # This path is only correct on this specific machine.
+  # TODO: If I want to do Claude plugin development on more machines, find a way
+  # to make this work in the base config.
+  workflows.claudeCode.settings.extraKnownMarketplaces = {
+    datadog-claude-plugins-dev = {
+      source = {
+        source = "directory";
+        path = "/Users/richard.morrill/dd/claude-marketplace/dev";
+      };
+    };
+  };
+
   imports = [
     "${modules}/common/home"
     "${modules}/programs/atuin"
