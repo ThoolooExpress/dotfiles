@@ -13,11 +13,23 @@
         allow = [
           "ListMcpResourcesTool"
           "ReadMcpResourceTool"
-          "mcp__"
+          "mcp__dd-prod"
+          "mcp__dd-staging"
+          "mcp__atlassian"
           "WebFetch(domain:docs.anthropic.com)"
           "WebFetch(domain:docs.claude.com)"
           "WebFetch(domain:platform.openai.com)"
+          "WebSearch"
           "Bash(agent-jj:*)"
+
+          # I turn sandbox on all the time so IDGAF
+          "Read"
+          "Write"
+          "Edit"
+          "Bash"
+          "Glob"
+          "Grep"
+          "Task"
         ];
       };
 
@@ -88,6 +100,10 @@
 
       alwaysThinkingEnabled = true;
       autoUpdatesChannel = "latest";
+
+      env = {
+        CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1;
+      };
     };
 
     home.file = {

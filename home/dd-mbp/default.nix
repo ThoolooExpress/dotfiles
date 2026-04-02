@@ -6,6 +6,8 @@
     "${modules}/programs/eza"
     "${modules}/programs/jujutsu"
     "${modules}/programs/neovim"
+    "${modules}/programs/sandbox-runtime"
+    "${modules}/workflows/opencode"
     "${modules}/programs/zsh"
     "${modules}/workflows/claude-code"
     "${modules}/workflows/datadog"
@@ -100,4 +102,6 @@
       };
     };
   };
+
+  programs.sandbox-runtime.enable = true;
 }
