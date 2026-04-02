@@ -15,6 +15,4 @@
   home.username = "bits";
   home.homeDirectory = "/home/bits";
   home.stateVersion = "26.05";
-
-  home.backupFileExtension = "bak";
 }

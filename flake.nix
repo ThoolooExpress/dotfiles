@@ -39,7 +39,7 @@
         };
 
         # "dd-workspace" (Work VM)
-        "bits@richard-morrill" = home-manager.lib.homeManagerConfiguration {
+        "dd-workspace" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = "x86_64-linux"; };
           extraSpecialArgs = {
             modules = ./modules;
