@@ -19,6 +19,8 @@
     openssh.authorizedKeys.keys = [
       # thooloohive key
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1LG36pG0TZnU5A+8gXv7un2S13jprcFL3Zb2r7qCn1 morrill@thoolooexpress.com"
+      # thoolooframe key
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMhNwHLC4plBDsVdPDChGlxwTCr6/WS5hsK7D6tbDmJd thoolooexpress@thoolooframe"
     ];
     shell = pkgs.zsh;
   };
