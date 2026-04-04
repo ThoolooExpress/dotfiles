@@ -116,6 +116,20 @@
             }
           ];
         };
+        thoolooframe = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            modules = ./modules;
+            secrets = ./secrets;
+          };
+          modules = [
+            ./host/thoolooframe
+            agenix.nixosModules.default
+            {
+              environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
+            }
+          ];
+        };
       };
     };
 }
