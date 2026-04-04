@@ -7,10 +7,20 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix.url = "github:ryantm/agenix";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # gVisor is pinned because of a build issue in the unstable branch.
     # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
-    pinnedGvisorVersion.url = "github:nixos/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
+    pinnedGvisorVersion = {
+      url = "github:nixos/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
+    };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,6 +30,7 @@
       home-manager,
       pinnedGvisorVersion,
       agenix,
+      nix-vscode-extensions,
       ...
     }:
     # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
@@ -62,6 +73,26 @@
             ./home/thooloocraft
           ];
         };
+        # "thoolooframe (Personal Laptop)
+        "thoolooexpress@thoolooframe" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          extraSpecialArgs = {
+            modules = ./modules;
+          };
+          modules = [
+            ./home/thoolooframe
+            (
+              { config, pkgs, ... }:
+              {
+                nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ];
+              }
+            )
+          ];
+        };
+
       };
 
       nixosConfigurations = {
