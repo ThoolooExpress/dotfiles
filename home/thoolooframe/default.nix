@@ -1,16 +1,10 @@
 { pkgs, modules, ... }:
 {
   imports = [
-    "${modules}/common/home"
-    "${modules}/programs/atuin"
-    "${modules}/programs/eza"
-    "${modules}/programs/jujutsu"
-    "${modules}/programs/neovim"
-    "${modules}/programs/zsh"
-    "${modules}/programs/vscode"
+    "${modules}/common-desktop-nixos/home"
     "${modules}/workflows/personal-development"
-  ];
 
+  ];
   home.username = "thoolooexpress";
   home.homeDirectory = "/home/thoolooexpress";
   home.stateVersion = "26.05";

@@ -24,7 +24,7 @@
     signing = {
       behavior = "own";
       backend = "ssh";
-      key = "/Users/richard.morrill/.config/gitsign/signing-key.pub";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFW/Fy5ywr4XELGpjGUDCXCqR0axBG7zS5skHabXn2F";
     };
 
     fsmonitor = {

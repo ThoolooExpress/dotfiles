@@ -2,12 +2,8 @@
 {
   imports = [
     "${modules}/common/home"
-    "${modules}/programs/atuin"
-    "${modules}/programs/eza"
-    "${modules}/programs/jujutsu"
-    "${modules}/programs/neovim"
-    "${modules}/programs/zsh"
     "${modules}/workflows/personal-development"
+
   ];
 
   home.username = "thoolooexpress";
