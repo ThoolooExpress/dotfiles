@@ -2,11 +2,6 @@
 {
   imports = [
     "${modules}/common/home"
-    "${modules}/programs/atuin"
-    "${modules}/programs/eza"
-    "${modules}/programs/jujutsu"
-    "${modules}/programs/neovim"
-    "${modules}/programs/zsh"
     "${modules}/workflows/claude-code"
     "${modules}/workflows/datadog"
     "${modules}/workflows/k8s"
