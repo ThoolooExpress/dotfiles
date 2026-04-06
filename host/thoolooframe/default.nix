@@ -2,17 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, modules, secrets, ... }:
+{
+  config,
+  pkgs,
+  modules,
+  secrets,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      "${modules}/common/host"
-    ];
-  
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    "${modules}/common/host"
+  ];
 
-  boot.initrd.luks.devices."luks-65a904f2-7e9a-410a-8031-ef7f237f78f4".device = "/dev/disk/by-uuid/65a904f2-7e9a-410a-8031-ef7f237f78f4";
+  boot.initrd.luks.devices."luks-65a904f2-7e9a-410a-8031-ef7f237f78f4".device =
+    "/dev/disk/by-uuid/65a904f2-7e9a-410a-8031-ef7f237f78f4";
 
   # Bootloader.
   boot.loader = {
@@ -69,7 +75,8 @@
 
   # Set hashed password (user already defined in common)
   age.secrets.thoolooexpress-login-hashed-password.file = "${secrets}/thoolooexpress-login-hashed-password.age";
-  users.users.thoolooexpress.hashedPasswordFile = config.age.secrets.thoolooexpress-login-hashed-password.path;
+  users.users.thoolooexpress.hashedPasswordFile =
+    config.age.secrets.thoolooexpress-login-hashed-password.path;
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -80,6 +87,15 @@
   # Since we don't want to run an actual OpenSSH server here, just point
   # agenix at our system SSH key
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+  # Enable resolving .local domains
+  # TODO: Move this to a more generic block
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true; # Enables resolve-by-hostname (e.g., ping hostname.local)
+    nssmdns6 = true;
+    openFirewall = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
