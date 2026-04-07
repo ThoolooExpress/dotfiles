@@ -57,8 +57,6 @@
 
   boot.initrd.luks.devices."cryptdata" = {
     device = "/dev/md0";
-    keyFile = "/root/cryptdata-keyfile";
-    fallbackToPassword = false;
   };
 
   swapDevices = [ ];

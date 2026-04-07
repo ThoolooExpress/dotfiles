@@ -9,7 +9,35 @@
   secrets,
   ...
 }:
+# TODO: Move this cryptenroller stuff to a more generic module (with config options for devices labels)
+let
+  luks-cryptenroll = pkgs.writeTextFile {
+    name = "luks-cryptenroll";
+    destination = "/bin/luks-cryptenroll";
+    executable = true;
 
+    # Note: You can hardcode additional LUKS devices like so:
+    # text = let
+    #   ...
+    #   luksDevice02 = "BEEGLUKS01";
+    #   luksDevice03 = "BEEGLUKS02";
+    # in ''
+    #   ...
+    #   sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 /dev/disk/by-label/${luksDevice02}
+    #   sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 /dev/disk/by-label/${luksDevice03}
+    # '';
+
+    # Checking PCRs 0 and 7 (BIOS version and secure boot state). Could be more secure to also check 4,
+    # to verify the bootloader itself, but that is much less stable.
+    text =
+      let
+        luksDevice01 = "/dev/md0";
+      in
+      ''
+        sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 /dev/md0
+      '';
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -23,6 +51,7 @@
   # Bootloader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
+    # Note, we do not enable systemd-boot here because lanzeboote does that for us
   };
   boot.lanzaboote = {
     enable = true;
@@ -86,6 +115,7 @@
     cryptsetup
     mokutil
     sbctl
+    luks-cryptenroll
   ];
 
   system.stateVersion = "25.11"; # Did you read the comment?
