@@ -7,6 +7,6 @@ let
   thoolooframe-system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAneIm+MPIWHSUusWd77yV4dxMHvUQF5W3cPtXR3/Z15";
   systems = [ thooloocraft-system thoolooframe-system ];
 in {
-  "cloudflare-dns-thooloocraft-token.age".publicKeys = users ++ thooloocraft-system;
+  "cloudflare-dns-thooloocraft-token.age".publicKeys = users ++ [thooloocraft-system];
   "thoolooexpress-login-hashed-password.age".publicKeys = users ++ systems;
 }
