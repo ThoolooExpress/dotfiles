@@ -4,7 +4,7 @@
 {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
-    container-name = {
+    crafty-controller = {
       # 4.10.2
       image = "docker.io/arcadiatechnology/crafty-4@sha256:914ccf8232ba591db3d9c3f97bac368ae1e6dd8218f4618e2b4699e05018acfd";
       autoStart = true;

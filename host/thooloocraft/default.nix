@@ -42,6 +42,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./services/photoprism
     "${modules}/common/host"
     "${modules}/programs/podman"
     "${modules}/services/avahi"
