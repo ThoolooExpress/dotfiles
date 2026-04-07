@@ -74,5 +74,17 @@
     ssl = true;
   };
 
+  # Stuff to manage filesystems.
+  # TODO: When I'm done with this, either move to a shared module
+  # or just remove.
+  environment.systemPackages = with pkgs; [
+    btrfs-progs
+    mdadm
+    cryptsetup
+    mokutil
+    sbctl
+  ];
+
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }
