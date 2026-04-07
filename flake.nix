@@ -21,6 +21,10 @@
       url = "github:nix-community/nix-vscode-extensions/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +35,7 @@
       pinnedGvisorVersion,
       agenix,
       nix-vscode-extensions,
+      lanzaboote,
       ...
     }:
     # TODO: Remove once https://github.com/NixOS/nixpkgs/pull/503624 is merged.
@@ -114,6 +119,7 @@
             {
               environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
             }
+            lanzaboote.nixosModules.lanzaboote
           ];
         };
         thoolooframe = lib.nixosSystem {

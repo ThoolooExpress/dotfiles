@@ -22,8 +22,11 @@
 
   # Bootloader.
   boot.loader = {
-    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+  };
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   networking = {
@@ -84,7 +87,6 @@
     mokutil
     sbctl
   ];
-
 
   system.stateVersion = "25.11"; # Did you read the comment?
 }

@@ -26,11 +26,17 @@
   };
 
   # Packages I almost always need
+  # Some are  made redundant by my home-manager config
+  # but as long as the `follows` in the flake is set up
+  # correctly this shouldn't actually duplicate anything.
   environment.systemPackages = with pkgs; [
     home-manager
     wget
     curl
     git
+    vim
+    file
+    jujutsu
   ];
 
   # Stuff that really should be on by default at this point
