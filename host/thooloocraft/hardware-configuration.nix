@@ -37,7 +37,7 @@
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/75bba4a1-b517-4793-9be5-1b8c0f0f2ecb";
+    device = "/dev/mapper/cryptroot";
     fsType = "ext4";
   };
 
@@ -55,8 +55,17 @@
     fsType = "btrfs";
   };
 
-  boot.initrd.luks.devices."cryptdata" = {
-    device = "/dev/md0";
+  # Writing raw file instead of using initrd because we specifically want to load
+  # the data drives after the root drive is decrypted.
+  environment.etc."crypttab".text = ''
+    cryptdata /dev/md0 /root/cryptdata_key luks
+  '';
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/baed883d-6a29-4a4f-b35a-39b3528589b9";
+    crypttabExtraOpts = [
+      "tpm2-device=auto"
+      "tpm2-measure-pcr=yes"
+    ];
   };
 
   swapDevices = [ ];
