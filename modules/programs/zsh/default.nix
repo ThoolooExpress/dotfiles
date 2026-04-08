@@ -13,7 +13,7 @@
       enable = true;
     };
     initContent = ''
-      PROMPT="%D %* %1~ %# > "
+      eval "$(starship init zsh)"
     '';
   };
 }

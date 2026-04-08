@@ -1,0 +1,102 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+
+# Colors (ANSI) 23, 59, 131, 203
+
+format = """
+[](fg:blue)\
+$time\
+[](bg:cyan fg:blue)\
+$username\
+$hostname\
+[](fg:cyan bg:purple)\
+$directory\
+[](fg:purple) 
+"""
+
+right_format = """
+$kubernetes $custom
+"""
+
+[time]
+disabled = false
+time_format = "%F %T"
+style = "bg:blue fg:black"
+format = '[$time ]($style)'
+
+[username]
+style_user = "bg:cyan fg:black"
+style_root = "bg:cyan fg:bright-red"
+
+[hostname]
+ssh_only = true
+style = "bg:cyan fg:black"
+format = "[@$ssh_symbol$hostname ]($style)"
+
+[directory]
+style = "bg:purple fg:black"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+[kubernetes]
+disabled = false
+format = '[$symbol$context]($style)'
+style = "fg:bright-black"
+
+[custom.jj]
+# I have no goddamn idea how this AWK script works
+command = '''
+jj log --no-graph -r '::@' --limit 20 \
+  -T 'change_id.shortest(4).prefix() ++ "|" ++ change_id.shortest(4).rest() ++ "\t" ++ description.first_line() ++ "\t" ++ bookmarks.map(|b| b.name()).join(",") ++ "\n"' \
+  2>/dev/null |
+awk -v branch="$(printf '\xee\x82\xa0')" \
+    -v bold="$(printf '\033[1m')" \
+    -v nobold="$(printf '\033[22m')" \
+    -F'\t' '
+NR == 1 {
+  split($1, id, "|"); cid = bold id[1] nobold id[2]; d = $2; b = $3
+  if (b != "") { bn = b; bd = 0; fb = 1 }
+  if (d != "") { hd = 1 }
+}
+NR > 1 && !fd && $2 != "" { fd = 1; dd = NR-1; dt = $2 }
+NR > 1 && !fb && $3 != "" { fb = 1; bd = NR-1; bn = $3 }
+END {
+  o = " " cid
+  if (hd) {
+    o = o " " d
+    if (fb) {
+      if (bd == 0) o = o " (" branch " " bn ")"
+      else         o = o " (" branch " " bn "~" bd ")"
+    }
+  } else if (fb && (!fd || bd <= dd)) {
+    o = o " " branch " " bn
+    if (bd > 0) o = o "~" bd
+  } else if (fd) {
+    s = substr(dt, 1, 40)
+    if (length(dt) > 40) s = s "..."
+    o = o " " dd "^ " s
+    if (fb) o = o " (" branch " " bn "~" bd ")"
+  }
+  print o
+}
+'
+'''
+disabled = false
+format = "[$symbol($output)]($style)"
+symbol = " "
+style = "fg:bright-black"
+when = 'd=$PWD; while [ "$d" != "/" ] && [ "$d" != "$HOME" ]; do [ -d "$d/.jj" ] && break; d=${d%/*}; done; [ -d "$d/.jj" ]'

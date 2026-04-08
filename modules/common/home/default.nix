@@ -6,6 +6,7 @@
     "${modules}/programs/eza"
     "${modules}/programs/jujutsu"
     "${modules}/programs/neovim"
+    "${modules}/programs/starship"
     "${modules}/programs/zsh"
   ];
 
