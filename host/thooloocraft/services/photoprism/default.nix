@@ -22,6 +22,7 @@
         # Config data goes onto SSD, for now just whack it into the default
         # volume storage.
         "photoprism-storage:/photoprism/storage"
+        "/var/photoprism-import:/photoprism/import"
       ];
     };
   };
