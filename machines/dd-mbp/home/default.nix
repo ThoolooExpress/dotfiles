@@ -3,6 +3,7 @@
   imports = [
     "${modules}/common/home"
     "${modules}/programs/sandbox-runtime"
+    "${modules}/programs/vscode"
     "${modules}/workflows/opencode"
     "${modules}/workflows/claude-code"
     "${modules}/workflows/datadog"
