@@ -1,4 +1,4 @@
-{ pkgs, modules, ... }:
+{ pkgs, modules, nixpkgs, ... }:
 {
   imports = [
     "${modules}/common/home"
@@ -13,6 +13,14 @@
   home.username = "richard.morrill";
   home.homeDirectory = "/Users/richard.morrill";
   home.stateVersion = "26.05";
+
+  # At this point, this is the only non-Nix sytem I use topgrade on.
+  # TODO: Migrate topgrade to a more general module if I can make sure it won't
+  # screw things up on other systems
+  home.packages = [
+    pkgs.topgrade
+  ];
+  xdg.configFile."topgrade.toml".text = builtins.readFile ./topgrade.toml;
 
   programs.jujutsu.settings = {
     # TODO: Make signing work on Workspaces, when I do, migrate this somewhere
@@ -100,4 +108,11 @@
   };
 
   programs.sandbox-runtime.enable = true;
+
+  # This is an attempt to make my nix-shell invocations use the pinned sha from
+  # my flake.
+  # TODO: If this works well, do it everywhere else
+  home.sessionVariables = {
+    NIX_PATH = "nixpkgs=${nixpkgs}";
+  };
 }

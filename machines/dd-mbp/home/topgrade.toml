@@ -1,0 +1,15 @@
+[misc]
+
+disable = ["vscode"]
+cleanup = true
+ask_retry = false
+assume_yes = true
+pre_sudo = true
+
+[git]
+
+fetch_only = true
+
+[docker]
+
+use_sudo = true

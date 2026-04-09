@@ -31,6 +31,7 @@
           };
           extraSpecialArgs = {
             inherit modules;
+            inherit nixpkgs;
           };
           modules = [
             ./home
