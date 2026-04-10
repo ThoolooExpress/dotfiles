@@ -10,6 +10,6 @@ pre_sudo = true
 
 fetch_only = true
 
-[docker]
+[containers]
 
 use_sudo = true
