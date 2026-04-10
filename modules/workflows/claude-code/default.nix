@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.workflows.claudeCode.settings = lib.mkOption {
@@ -110,5 +115,9 @@
       ".claude/settings.json".text = builtins.toJSON config.workflows.claudeCode.settings;
       ".claude/CLAUDE.md".source = ./CLAUDE.md;
     };
+
+    programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
+      anthropic.claude-code
+    ];
   };
 }

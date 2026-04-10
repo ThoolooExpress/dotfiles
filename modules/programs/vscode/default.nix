@@ -10,18 +10,21 @@
     profiles.default = {
       extensions = with pkgs.vscode-marketplace; [
         # VCS tools
-        jjk.jjk
+        pkgs.vscode-marketplace.jjk.jjk
 
         # Language support
-        foxundermoon.shell-format
+        pkgs.vscode-marketplace.foxundermoon.shell-format
         jnoortheen.nix-ide
         redhat.vscode-yaml
         timonwong.shellcheck
         llvm-vs-code-extensions.vscode-clangd
         tamasfe.even-better-toml
+        davidanson.vscode-markdownlint
 
-        # General usability helpers
+        # General dev tools
         dnut.rewrap-revived
+        ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-containers
 
         # Cosmetic
         t3dotgg.vsc-material-theme-but-i-wont-sue-you

@@ -23,8 +23,6 @@
   xdg.configFile."topgrade.toml".text = builtins.readFile ./topgrade.toml;
 
   programs.jujutsu.settings = {
-    # TODO: Make signing work on Workspaces, when I do, migrate this somewhere
-    # else.
     signing = {
       behavior = "own";
       backend = "ssh";

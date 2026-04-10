@@ -5,5 +5,6 @@
     ./identity.nix
     ./redirect-managed-zsh.nix
     ./k8s-docker-aliases.nix
+    ./ide-config.nix
   ];
 }
