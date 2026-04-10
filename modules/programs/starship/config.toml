@@ -27,11 +27,12 @@ format = '[$time ]($style)'
 [username]
 style_user = "bg:cyan fg:black"
 style_root = "bg:cyan fg:bright-red"
+format = "[ $user]($style)"
 
 [hostname]
 ssh_only = true
 style = "bg:cyan fg:black"
-format = "[@$ssh_symbol$hostname ]($style)"
+format = "[@$hostname ]($style)"
 
 [directory]
 style = "bg:purple fg:black"
