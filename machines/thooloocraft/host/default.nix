@@ -9,35 +9,6 @@
   secrets,
   ...
 }:
-# TODO: Move this cryptenroller stuff to a more generic module (with config options for devices labels)
-let
-  luks-cryptenroll = pkgs.writeTextFile {
-    name = "luks-cryptenroll";
-    destination = "/bin/luks-cryptenroll";
-    executable = true;
-
-    # Note: You can hardcode additional LUKS devices like so:
-    # text = let
-    #   ...
-    #   luksDevice02 = "BEEGLUKS01";
-    #   luksDevice03 = "BEEGLUKS02";
-    # in ''
-    #   ...
-    #   sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 /dev/disk/by-label/${luksDevice02}
-    #   sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 /dev/disk/by-label/${luksDevice03}
-    # '';
-
-    # Checking PCRs 0 and 7 (BIOS version and secure boot state). Could be more secure to also check 4,
-    # to verify the bootloader itself, but that is much less stable.
-    text =
-      let
-        luksDevice01 = "/dev/md0";
-      in
-      ''
-        sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="0+7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/disk/by-uuid/baed883d-6a29-4a4f-b35a-39b3528589b9
-      '';
-  };
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -47,7 +18,13 @@ in
     "${modules}/programs/podman"
     "${modules}/services/avahi"
     "${modules}/services/crafty-controller"
+    "${modules}/workflows/luks-cryptenroll"
   ];
+
+  workflows.luksCryptenroll = {
+    enable = true;
+    devices.cryptroot = "baed883d-6a29-4a4f-b35a-39b3528589b9";
+  };
 
   # Bootloader.
   boot.loader = {
@@ -107,16 +84,11 @@ in
     ssl = true;
   };
 
-  # Stuff to manage filesystems.
-  # TODO: When I'm done with this, either move to a shared module
-  # or just remove.
   environment.systemPackages = with pkgs; [
     btrfs-progs
     mdadm
-    cryptsetup
     mokutil
     sbctl
-    luks-cryptenroll
   ];
 
   system.stateVersion = "25.11"; # Did you read the comment?

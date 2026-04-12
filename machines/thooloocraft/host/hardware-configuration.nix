@@ -23,9 +23,8 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  # Use Systemd stage-1. This is needed for both the SW Raid
-  # as well as properly verifying the LUKS encrypted volume.
   boot.initrd.systemd.enable = true;
+
 
   # Software RAID
   boot.initrd.services.swraid = {
@@ -60,14 +59,6 @@
   environment.etc."crypttab".text = ''
     cryptdata /dev/md0 /root/cryptdata_key luks
   '';
-  boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-uuid/baed883d-6a29-4a4f-b35a-39b3528589b9";
-    crypttabExtraOpts = [
-      "tpm2-device=auto"
-      "tpm2-measure-pcr=yes"
-    ];
-  };
-
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

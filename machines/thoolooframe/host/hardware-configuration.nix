@@ -14,11 +14,10 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/mapper/luks-69e7a964-4e37-47eb-aab1-07bc8c991cec";
+    { device = "/dev/mapper/cryptroot";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-69e7a964-4e37-47eb-aab1-07bc8c991cec".device = "/dev/disk/by-uuid/69e7a964-4e37-47eb-aab1-07bc8c991cec";
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/D21A-E058";
@@ -27,7 +26,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/mapper/luks-65a904f2-7e9a-410a-8031-ef7f237f78f4"; }
+    [ { device = "/dev/mapper/cryptswap"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

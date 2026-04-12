@@ -15,10 +15,14 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     "${modules}/common/host"
+    "${modules}/workflows/luks-cryptenroll"
   ];
 
-  boot.initrd.luks.devices."luks-65a904f2-7e9a-410a-8031-ef7f237f78f4".device =
-    "/dev/disk/by-uuid/65a904f2-7e9a-410a-8031-ef7f237f78f4";
+  workflows.luksCryptenroll = {
+    enable = true;
+    devices.cryptroot = "69e7a964-4e37-47eb-aab1-07bc8c991cec";
+    devices.cryptswap = "65a904f2-7e9a-410a-8031-ef7f237f78f4";
+  };
 
   # Bootloader.
   boot.loader = {
