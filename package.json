@@ -1,0 +1,25 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ThoolooExpress/dotfiles#readme",
+  "bugs": {
+    "url": "https://github.com/ThoolooExpress/dotfiles/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThoolooExpress/dotfiles.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "pi": "pi"
+  },
+  "dependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}
