@@ -10,4 +10,5 @@ in {
   "cloudflare-dns-thooloocraft-token.age".publicKeys = users ++ [thooloocraft-system];
   "thoolooexpress-login-hashed-password.age".publicKeys = users ++ systems;
   "thooloocraft-photoprism-default-admin-password.age".publicKeys = users ++ [thooloocraft-system];
+  "thoolooframe-openrouter-key.age".publicKeys = [thoolooframe-user thoolooframe-system];
 }
