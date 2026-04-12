@@ -22,8 +22,12 @@
 
   # Bootloader.
   boot.loader = {
-    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+    # Note, we do not enable systemd-boot here because lanzeboote does that for us
+  };
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   networking = {
@@ -96,6 +100,14 @@
     nssmdns6 = true;
     openFirewall = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    # LUKS / secure boot management stuff.
+    # TODO: Move this to a common workflow
+    cryptsetup
+    mokutil
+    sbctl
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -16,7 +16,7 @@
       url = "github:nix-community/nix-vscode-extensions/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-        lanzaboote = {
+    lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -36,6 +36,7 @@
       nix-vscode-extensions,
       modules,
       secrets,
+      lanzaboote,
       ...
     }:
     let
@@ -49,10 +50,11 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
-            inherit modules;
+            inherit modules secrets;
           };
           modules = [
             ./home
+            agenix.homeManagerModules.default
             (
               { config, pkgs, ... }:
               {
@@ -75,6 +77,7 @@
             {
               environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
             }
+            lanzaboote.nixosModules.lanzaboote
           ];
         };
       };
