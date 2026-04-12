@@ -2,6 +2,7 @@
 {
   imports = [
     "${modules}/programs/vscode"
+    "${modules}/common/home"
   ];
 
   home.username = "thoolooexpress";

@@ -28,6 +28,7 @@
 
         # Cosmetic
         t3dotgg.vsc-material-theme-but-i-wont-sue-you
+        johnpapa.vscode-peacock
       ];
       userSettings = {
         # Visual
