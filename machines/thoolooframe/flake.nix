@@ -16,6 +16,10 @@
       url = "github:nix-community/nix-vscode-extensions/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+        lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     modules.url = "path:../../modules";
     secrets = {
       url = "path:../../secrets";

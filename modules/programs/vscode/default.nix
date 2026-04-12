@@ -51,7 +51,8 @@
         # Point extensions at Nix versions of stuff
         shellcheck.executablePath = lib.getExe pkgs.shellcheck;
       };
-
+      # TODO: Translate 
+      keybindings = ./keybindings.json;
     };
   };
 
