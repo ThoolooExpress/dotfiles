@@ -21,49 +21,6 @@
 
 </testing>
 
-<version_control priority="CRITICAL">
-
-<vcs_workflow>
-If instructed to commit your work, always use `agent-jj`:
-
-1. Run `agent-jj describe -m "$message"` to describe the work that you are about
-   to do.
-
-2. As you complete a self-contained unit of work, run `agent-jj new` to create a
-   new, empty change on top of the current change, and `agent-jj describe` to
-   describe the next unit of work.
-
-3. If you discover that your original description no longer fits the work you've
-   been doing, use `agent-jj describe` to update the description.
-
-4. Unless specifically instructed otherwise, keep all changes in a linear chain.
-
-5. When you are done, run `jj new` to leave the repo at an empty commit, ready
-   for any future work.
-
-**REALLY FUCKING IMPORTANT**: NEVER USE RAW `jj` OR `git` COMMANDS!!
-
-</vcs_workflow>
-
-<planning_reminder>
-
-When planning (subagent or TODO tool): make checking VCS state the FIRST step
-and finalizing VCS state the LAST step.
-
-</planning_reminder>
-
-<vcs_error_handling priority="CRITICAL">
-
-If you encounter an error running an
-`agent-jj` command, carefully read the error message. If it is an obvious error
-in your command, revise your command and try again. If it is an internal error
-in jj or agent-jj, or the repo is in an unexpected state, **STOP AND ESCALATE TO
-THE USER**.
-
-</vcs_error_handling>
-
-</version_control>
-
 <bazel priority="CRITICAL">
 
 - If Bazel server is busy: retry up to 3 times with a 30s wait between attempts.
@@ -71,6 +28,24 @@ THE USER**.
 - NEVER attempt to kill Bazel processes.
 
 </bazel>
+
+<version_control>
+
+The user prefers to use "jujutsu" (`jj`) over `git`. When performing version
+control operations, prefer `jj` over `git` where possible.
+
+<when_to_use priority="CRITICAL">
+
+Use read-only version control commands as appropriate to gain context.
+
+Really fucking critical: Only use mutating version control commands when they're
+integral to the task you've been given, or if the user has explicitly asked you
+to "commit your work" or similar. In all other cases, just modify files directly
+in the working directory and leave it to the user to handle comitting.
+
+</when_to_use>
+
+</version_control>
 
 <subagent_file_editing>
 

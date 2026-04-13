@@ -41,6 +41,7 @@
       sandbox = {
         enabled = true;
         filesystem = {
+          denyRead = ["~"];
           allowWrite = [
             "/tmp"
             "~/go"
@@ -50,17 +51,23 @@
             "/tmp"
             "~/go"
             "~/repos"
+            "~/.config"
           ];
         };
         excludedCommands = [
           "docker:*"
           "bzl:*"
           "agent-jj:*"
+          "jj:*"
+          "gh:*"
         ];
         autoAllowBashIfSandboxed = true;
         network = {
           # The sandbox inherits the domains within `WebFetch(...)` permission grants above.
-          allowedDomains = [ ];
+          allowedDomains = [
+            "github.com"
+            "ddbuild.io"
+          ];
         };
       };
 
