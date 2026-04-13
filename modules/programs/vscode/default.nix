@@ -20,6 +20,7 @@
         llvm-vs-code-extensions.vscode-clangd
         tamasfe.even-better-toml
         davidanson.vscode-markdownlint
+        ms-kubernetes-tools.vscode-kubernetes-tools
 
         # General dev tools
         dnut.rewrap-revived
