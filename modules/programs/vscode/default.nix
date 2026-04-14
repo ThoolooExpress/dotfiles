@@ -36,7 +36,9 @@
         workbench.colorTheme = "Material Theme Darker High Contrast";
         editor.fontFamily = "FiraCode Nerd Font Mono";
         materialTheme.accent = "Tomato";
-        workbench.colorCustomizations = (builtins.fromJSON (builtins.readFile ./workbench.colorCustomizations.jsonc));
+        workbench.colorCustomizations = (
+          builtins.fromJSON (builtins.readFile ./workbench.colorCustomizations.jsonc)
+        );
         workbench.sideBar.location = "right";
         editor.fontLigatures = "'ss01', 'ss03', 'ss05', 'ss07', 'ss10'";
 
@@ -44,15 +46,16 @@
         editor.rulers = [ 80 ];
 
         # Tool choice preferences
-        git.enabled = false;  # I use JJ
+        git.enabled = false; # I use JJ
         C_Cpp.intelliSenseEngine = "disabled";
         "[shellscript]".editor.defaultFormatter = "foxundermoon.shell-format";
 
-
         # Point extensions at Nix versions of stuff
         shellcheck.executablePath = lib.getExe pkgs.shellcheck;
+
+        vs-kubernetes.vs-kubernetes.crd-code-completion = "enabled";
       };
-      # TODO: Translate 
+      # TODO: Translate
       keybindings = ./keybindings.json;
     };
   };
