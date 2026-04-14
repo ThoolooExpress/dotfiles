@@ -15,8 +15,12 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     "${modules}/common/host"
+    "${modules}/common-desktop-nixos/host"
     "${modules}/workflows/luks-cryptenroll"
   ];
+
+  # Unclear if this is necessary, but can't hurt, right?
+  hardware.graphics.enable = true;
 
   workflows.luksCryptenroll = {
     enable = true;
