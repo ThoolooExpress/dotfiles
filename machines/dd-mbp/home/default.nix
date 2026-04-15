@@ -34,11 +34,6 @@
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFW/Fy5ywr4XELGpjGUDCXCqR0axBG7zS5skHabXn2F";
     };
 
-    fsmonitor = {
-      backend = "watchman";
-      watchman.register-snapshot-trigger = true;
-    };
-
     ui = {
       default-command = "log";
       merge-editor = "vscode";

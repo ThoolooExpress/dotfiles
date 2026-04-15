@@ -75,6 +75,11 @@
             first_line_suffix(description),
           )
         '';
+
+        fsmonitor = {
+          backend = "watchman";
+          watchman.register-snapshot-trigger = true;
+        };
       };
 
       revsets = {
@@ -96,6 +101,41 @@
   };
 
   programs.zsh.shellAliases = {
-      st = "(jj st --color=always --no-pager && echo '' && jj log -r '@-' --no-graph -T 'comfortable_with_files' --no-pager --color=always) | less -RX";
+    st = "(jj st --color=always --no-pager && echo '' && jj log -r '@-' --no-graph -T 'comfortable_with_files' --no-pager --color=always) | less -RX";
   };
+
+  # Install and configure watchman
+  # TODO: Move this to a dedicated module if I have a use for Watchman outside
+  # of jj and / or want to configure watchman settings per machine.
+  home.packages = [
+    pkgs.watchman
+  ];
+  home.file = {
+    # This creates a home-dir level Watchman config that tells Watchman not to
+    # look at stuff it really shouldn't be looking at. Some options are
+    # redundant because for some reason Meta can't just pick a name and stick
+    # with it across different versions.
+    ".watchmanconfig".text = builtins.toJSON {
+      enforce_root_files = true;
+      root_files = [
+        ".git"
+        ".hg"
+        ".svn"
+        ".jj"
+      ];
+      root_restrict_files = [
+        ".git"
+        ".hg"
+        ".svn"
+        ".jj"
+      ];
+      ignore_vcs = [
+        ".git"
+        ".hg"
+        ".svn"
+        ".jj"
+      ];
+    };
+  };
+
 }
