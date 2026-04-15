@@ -5,9 +5,40 @@
   ...
 }:
 
+let
+  # Recursively merges attribute sets; lists at any depth are concatenated
+  # rather than conflicting. This makes the settings option behave like a
+  # JSON-merge-patch accumulator, which is what we want for a settings blob
+  # that multiple modules extend.
+  #
+  # CAVEAT: scalar values (strings, numbers, bools) are NOT detected as
+  # conflicts — the last definition silently wins. This bypasses the normal
+  # module-system priority mechanism (mkDefault / mkForce) for any nested
+  # scalar. If two modules set the same scalar key to different values you
+  # will not get an error; whichever module is evaluated last takes effect.
+  # Use this type only for settings blobs where that trade-off is acceptable.
+  recursiveMerge = lib.types.mkOptionType {
+    name = "recursiveMerge";
+    description = "recursively merged attribute set (lists concatenated)";
+    check = lib.isAttrs;
+    merge = _loc: defs:
+      let
+        mergeTwo = a: b:
+          if lib.isAttrs a && lib.isAttrs b
+          then
+            lib.mapAttrs (k: bv: if a ? ${k} then mergeTwo a.${k} bv else bv) b
+            // lib.filterAttrs (k: _: !(b ? ${k})) a
+          else if lib.isList a && lib.isList b
+          then a ++ b
+          else b; # scalar: last definition wins — see caveat above
+      in
+        lib.foldl' mergeTwo { } (map (d: d.value) defs);
+  };
+in
+
 {
   options.workflows.claudeCode.settings = lib.mkOption {
-    type = with lib.types; attrsOf anything;
+    type = recursiveMerge;
     default = { };
     description = "Attribute set merged into ~/.claude/settings.json as JSON.";
   };
@@ -41,7 +72,7 @@
       sandbox = {
         enabled = true;
         filesystem = {
-          denyRead = ["~"];
+          denyRead = [ "~" ];
           allowWrite = [
             "/tmp"
             "~/go"

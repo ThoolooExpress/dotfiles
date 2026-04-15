@@ -1,4 +1,9 @@
-{ pkgs, modules, nixpkgs, ... }:
+{
+  pkgs,
+  modules,
+  nixpkgs,
+  ...
+}:
 {
   imports = [
     "${modules}/common/home"
@@ -66,6 +71,7 @@
   programs.zsh = {
     # This is extra content that was in my .zshenv before I started using Nix.
     # TODO: Determine how much of this stuff can just be migrated to Nix.
+    # TODO: Remove cruft from Claude Code settings below when I deal with this.
     envExtra = ''
       . "$HOME/.cargo/env"
       export VOLTA_HOME="$HOME/.volta"
@@ -96,16 +102,26 @@
   # This path is only correct on this specific machine.
   # TODO: If I want to do Claude plugin development on more machines, find a way
   # to make this work in the base config.
-  workflows.claudeCode.settings.extraKnownMarketplaces = {
-    datadog-claude-plugins-dev = {
-      source = {
-        source = "directory";
-        path = "/Users/richard.morrill/dd/claude-marketplace/dev";
+  workflows.claudeCode.settings = {
+    extraKnownMarketplaces = {
+      datadog-claude-plugins-dev = {
+        source = {
+          source = "directory";
+          path = "/Users/richard.morrill/dd/claude-marketplace/dev";
+        };
       };
     };
+    # These are here because of the legacy cruft added to .zshenv above.
+    # TODO: Determine if these can be removed when said legacy cruft is removed.
+    sandbox.filesystem.allowRead = [
+      "~/.cargo"
+      "~/.volta"
+    ];
+
   };
 
-  programs.sandbox-runtime.enable = true;
+  programs.sandbox-runtime.enable =
+    true;
 
   # This is an attempt to make my nix-shell invocations use the pinned sha from
   # my flake.
