@@ -76,10 +76,11 @@
           )
         '';
 
-        fsmonitor = {
-          backend = "watchman";
-          watchman.register-snapshot-trigger = true;
-        };
+      };
+
+      fsmonitor = {
+        backend = "watchman";
+        watchman.register-snapshot-trigger = true;
       };
 
       revsets = {
