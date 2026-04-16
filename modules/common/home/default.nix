@@ -17,5 +17,6 @@
     pkgs.cowsay
     pkgs.nerd-fonts.fira-code
     pkgs.git
+    pkgs.tmux
   ];
 }
