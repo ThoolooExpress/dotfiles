@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -111,12 +112,12 @@
   home.packages = [
     pkgs.watchman
   ];
-  home.file = {
+  xdg.configFile = {
     # This creates a home-dir level Watchman config that tells Watchman not to
     # look at stuff it really shouldn't be looking at. Some options are
     # redundant because for some reason Meta can't just pick a name and stick
     # with it across different versions.
-    ".watchmanconfig".text = builtins.toJSON {
+    "watchman/watchman.json".text = builtins.toJSON {
       enforce_root_files = true;
       root_files = [
         ".git"
@@ -138,5 +139,7 @@
       ];
     };
   };
-
+  home.sessionVariables = {
+    WATCHMAN_CONFIG_FILE = "${config.xdg.configHome}/watchman/watchman.json";
+  };
 }
