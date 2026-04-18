@@ -50,4 +50,7 @@
   security.sudo.enable = true;
   security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
+
+  # Can't get away from this shit...
+  programs.nix-ld.enable = true;
 }
