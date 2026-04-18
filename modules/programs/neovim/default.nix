@@ -13,6 +13,11 @@
       pkgs.vimPlugins.guess-indent-nvim
     ];
     extraConfig = ''
+      set expandtab
+      set shiftwidth=2
+      set tabstop=2
+      set autoindent
+      set smartindent
       " BEGIN VIM-DVORAK FROM https://github.com/danalexilewis/vim-dvorak
       " TODO: If I actually like these keybinds, make this a proper Nix package
       " Description {{{
