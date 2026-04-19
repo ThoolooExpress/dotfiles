@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 {
@@ -15,5 +16,6 @@
     initContent = ''
       eval "$(starship init zsh)"
     '';
+    dotDir = "${config.xdg.configHome}/zsh";
   };
 }

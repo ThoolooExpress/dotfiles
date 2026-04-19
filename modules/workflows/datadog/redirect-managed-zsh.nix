@@ -11,7 +11,6 @@
 
 {
   programs.zsh = {
-    dotDir = "${config.xdg.configHome}/nix-managed-zsh";
     initContent = ''
     [ -f ~/.zshrc ] && source ~/.zshrc
     '';
