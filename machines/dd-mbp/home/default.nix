@@ -115,13 +115,17 @@
 
   };
 
-  programs.sandbox-runtime.enable =
-    true;
+  programs.sandbox-runtime.enable = true;
 
-  # This is an attempt to make my nix-shell invocations use the pinned sha from
-  # my flake.
-  # TODO: If this works well, do it everywhere else
   home.sessionVariables = {
-    NIX_PATH = "nixpkgs=${nixpkgs}";
+    
+    # This is an attempt to make my nix-shell invocations use the pinned sha from
+    # my flake.
+    # TODO: If this works well, do it everywhere else
+    NIX_PATH = "nixpkgs=${nixpkgs}"; 
+    # Move Go cache and disable telemetry to minimize errors when running inside Claude Code sandbox
+    # TODO: Also solve this problem for Linux, perhaps just add it to the general Claude Code config.
+    GOCACHE = "/Users/richard.morrill/go/cache";
+    GOTELEMETRY = "off";
   };
 }
