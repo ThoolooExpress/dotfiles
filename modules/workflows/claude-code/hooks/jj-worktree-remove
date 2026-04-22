@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# WorktreeRemove hook for jj workspaces.
+# Called when Claude Code finishes with an isolated worktree session.
+#
+# Input (stdin): JSON with fields:
+#   worktree_path - absolute path returned by the WorktreeCreate hook
+
+set -euo pipefail
+
+INPUT=$(cat)
+WORKTREE_PATH=$(echo "$INPUT" | jq -r '.worktree_path')
+
+if [[ ! -d "$WORKTREE_PATH" ]]; then
+    echo "Worktree path '$WORKTREE_PATH' does not exist, nothing to remove." >&2
+    exit 0
+fi
+
+# Forget the workspace from within it. When called without arguments,
+# 'jj workspace forget' removes the current workspace from tracking.
+# The files on disk are not touched by jj — we delete them separately.
+cd "$WORKTREE_PATH"
+jj workspace forget 2>&1 >&2 || {
+    echo "Warning: 'jj workspace forget' failed for '$WORKTREE_PATH'; continuing with directory removal." >&2
+}
+
+# Remove the workspace directory.
+rm -rf "$WORKTREE_PATH"

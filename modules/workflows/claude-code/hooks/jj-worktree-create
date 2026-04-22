@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# WorktreeCreate hook for jj workspaces.
+# Claude Code calls this instead of git-worktree when a .jj repo is detected.
+#
+# Input (stdin): JSON with fields:
+#   name  - slug identifier for the workspace (auto-generated or user-specified)
+#   cwd   - the current working directory when the worktree was requested
+#
+# Output (stdout): absolute path to the created workspace directory
+# All diagnostic output must go to stderr.
+
+set -euo pipefail
+
+INPUT=$(cat)
+NAME=$(echo "$INPUT" | jq -r '.name')
+CWD=$(echo "$INPUT" | jq -r '.cwd')
+
+# Find the jj repo root from the calling directory.
+JJ_ROOT=$(cd "$CWD" && jj workspace root 2>/dev/null) || {
+    echo "Error: '$CWD' is not inside a jj repository" >&2
+    exit 1
+}
+
+REPO_NAME=$(basename "$JJ_ROOT")
+WORKTREE_DIR="$HOME/.claude/worktrees/${REPO_NAME}-${NAME}"
+
+mkdir -p "$HOME/.claude/worktrees"
+
+# Add the jj workspace. The --name flag sets the workspace name used by
+# 'jj workspace list'; the positional arg is the directory to create.
+cd "$JJ_ROOT"
+jj workspace add --name "$NAME" "$WORKTREE_DIR" >&2
+
+# Print the workspace path for Claude Code to use as its working directory.
+echo "$WORKTREE_DIR"

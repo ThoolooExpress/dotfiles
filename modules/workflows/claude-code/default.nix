@@ -116,7 +116,7 @@ in
             hooks = [
               {
                 type = "command";
-                command = "/Users/richard.morrill/.claude/hooks/jj-worktree-create";
+                command = "${config.home.homeDirectory}/.claude/hooks/jj-worktree-create";
               }
             ];
           }
@@ -126,7 +126,7 @@ in
             hooks = [
               {
                 type = "command";
-                command = "/Users/richard.morrill/.claude/hooks/jj-worktree-remove";
+                command = "${config.home.homeDirectory}/.claude/hooks/jj-worktree-remove";
               }
             ];
           }
@@ -152,6 +152,14 @@ in
     home.file = {
       ".claude/settings.json".text = builtins.toJSON config.workflows.claudeCode.settings;
       ".claude/CLAUDE.md".source = ./CLAUDE.md;
+      ".claude/hooks/jj-worktree-create" = {
+        source = ./hooks/jj-worktree-create;
+        executable = true;
+      };
+      ".claude/hooks/jj-worktree-remove" = {
+        source = ./hooks/jj-worktree-remove;
+        executable = true;
+      };
     };
 
     programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
