@@ -111,6 +111,12 @@
     sandbox.filesystem.allowRead = [
       "~/.cargo"
       "~/.volta"
+      "~/Library/Caches/go-build"
+      "~/Library/Application Support/go/telemetry"
+    ];
+    sandbox.filesystem.allowWrite = [
+      "~/Library/Caches/go-build"
+      "~/Library/Application Support/go/telemetry"
     ];
 
   };
@@ -118,11 +124,11 @@
   programs.sandbox-runtime.enable = true;
 
   home.sessionVariables = {
-    
+
     # This is an attempt to make my nix-shell invocations use the pinned sha from
     # my flake.
     # TODO: If this works well, do it everywhere else
-    NIX_PATH = "nixpkgs=${nixpkgs}"; 
+    NIX_PATH = "nixpkgs=${nixpkgs}";
     # Move Go cache and disable telemetry to minimize errors when running inside Claude Code sandbox
     # TODO: Also solve this problem for Linux, perhaps just add it to the general Claude Code config.
     GOCACHE = "/Users/richard.morrill/go/cache";
