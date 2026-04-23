@@ -21,6 +21,7 @@
         tamasfe.even-better-toml
         davidanson.vscode-markdownlint
         ms-kubernetes-tools.vscode-kubernetes-tools
+        esbenp.prettier-vscode
 
         # General dev tools
         dnut.rewrap-revived
@@ -49,11 +50,17 @@
         git.enabled = false; # I use JJ
         C_Cpp.intelliSenseEngine = "disabled";
         "[shellscript]".editor.defaultFormatter = "foxundermoon.shell-format";
+        "[markdown]".editor.defaultFormatter = "esbenp.prettier-vscode";
 
         # Point extensions at Nix versions of stuff
         shellcheck.executablePath = lib.getExe pkgs.shellcheck;
 
         vs-kubernetes.vs-kubernetes.crd-code-completion = "enabled";
+
+        # Code formatting stuff (be careful adding lines here, this will affect
+        # all repos, many of which have their own formatting rules already.)
+        prettier.printWidth = 80;
+        prettier.proseWrap = "always";
       };
       # TODO: Translate
       keybindings = ./keybindings.json;
