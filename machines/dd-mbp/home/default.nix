@@ -134,4 +134,8 @@
     GOCACHE = "/Users/richard.morrill/go/cache";
     GOTELEMETRY = "off";
   };
+
+  programs.zed-editor = {
+    enable = true;
+  };
 }
