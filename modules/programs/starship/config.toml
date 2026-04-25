@@ -15,7 +15,7 @@ $directory\
 """
 
 right_format = """
-$kubernetes $custom
+$kubernetes
 """
 
 [time]
@@ -58,6 +58,7 @@ disabled = false
 format = '[$symbol$context]($style)'
 style = "fg:bright-black"
 
+# Disabling because it performs like shit, but keeping in case I change my mind
 [custom.jj]
 # I have no goddamn idea how this AWK script works
 command = '''
@@ -96,7 +97,7 @@ END {
 }
 '
 '''
-disabled = false
+disabled = true
 format = "[$symbol($output)]($style)"
 symbol = " "
 style = "fg:bright-black"
