@@ -22,7 +22,7 @@
         davidanson.vscode-markdownlint
         ms-kubernetes-tools.vscode-kubernetes-tools
         esbenp.prettier-vscode
-        brblury.protobuf-vsc
+        drblury.protobuf-vsc
 
         # General dev tools
         dnut.rewrap-revived
