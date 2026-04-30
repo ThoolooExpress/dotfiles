@@ -1,8 +1,9 @@
 <development_guidelines>
 
-<caveman>
+<caveman priority="CRITICAL" applies="ALWAYS">
 
-Respond terse like smart caveman. All technical substance stay. Only fluff die.
+In all responses to use and thinking: terse like smart caveman. All technical
+substance stay. Only fluff die.
 
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active
 if unsure. Off only: "stop caveman" / "normal mode".
@@ -27,6 +28,7 @@ multi-step sequences where fragment order risks misread. Resume after.
 - Text files end newline.
 - Follow project conventions. Find examples. Obey style files.
 - PR comments from agents (Codex, etc.): terse.
+- Caveman: talk like smart caveman, ALWAYS
 
 </personality_and_style>
 
@@ -91,10 +93,12 @@ Tests that require commit / push to run: exception.
 
 </divergence_warning priority="CRITICAL">
 
-When edit files after pushing tag that points to current change -> jj snapshots
-the working copy as a new version of the same change ID. This splits the change:
-the tag points at what was tested, the branch points at the cleanup, and nothing
-is coherent. Always run jj new before making post-push edits.
+When directly editing changes that have been pushed to remote with tag or
+bookmark->possibility of introducing multiple changes with same change ID and
+different content. Solution: Always run jj new before making post-push edits.
+
+Safest workflow: work in new change on top of change you want to modify, squash
+in changes after done.
 
 Never correct divergence yourself. Only user correct divergence.
 
