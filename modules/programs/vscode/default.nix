@@ -30,12 +30,11 @@
         ms-vscode-remote.remote-containers
 
         # Cosmetic
-        t3dotgg.vsc-material-theme-but-i-wont-sue-you
         johnpapa.vscode-peacock
       ];
       userSettings = {
         # Visual
-        workbench.colorTheme = "Material Theme Darker High Contrast";
+        workbench.colorTheme = "Monokai Dimmed";
         editor.fontFamily = "FiraCode Nerd Font Mono";
         materialTheme.accent = "Tomato";
         workbench.colorCustomizations = (
