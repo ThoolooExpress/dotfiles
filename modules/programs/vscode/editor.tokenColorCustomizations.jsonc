@@ -1,0 +1,32 @@
+{
+    "$__comment_0": "Protobuf reads dingy on Monokai Dimmed: entity.name.type defaults to #9B0000 (dark red) and support to #C7444A, so message names, field types, and scalar types all wash together. Remap proto-suffixed scopes only so other languages (Nix in particular) are unaffected. All colors are drawn from the Monokai Dimmed palette.",
+    "[Monokai Dimmed]": {
+        "textMateRules": [
+            {
+                "name": "Protobuf: message/enum/service/oneof type names",
+                "scope": [
+                    "entity.name.type.message.proto",
+                    "entity.name.type.enum.proto",
+                    "entity.name.type.service.proto",
+                    "entity.name.type.oneof.proto",
+                    "entity.name.type.group.proto",
+                    "entity.name.type.extend.proto",
+                    "entity.name.type.field.proto",
+                    "entity.name.type.request.proto",
+                    "entity.name.type.response.proto"
+                ],
+                "settings": { "foreground": "#D0B344" }
+            },
+            {
+                "name": "Protobuf: built-in scalar field types (string, int32, ...)",
+                "scope": "support.type.field.proto",
+                "settings": { "foreground": "#9872A2" }
+            },
+            {
+                "name": "Protobuf: enum values",
+                "scope": "entity.name.type.enum-value.proto",
+                "settings": { "foreground": "#8080FF" }
+            }
+        ]
+    }
+}

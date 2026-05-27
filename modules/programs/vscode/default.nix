@@ -22,7 +22,7 @@
         davidanson.vscode-markdownlint
         ms-kubernetes-tools.vscode-kubernetes-tools
         esbenp.prettier-vscode
-        drblury.protobuf-vsc
+        pbkit.vscode-pbkit
 
         # General dev tools
         dnut.rewrap-revived
@@ -39,6 +39,9 @@
         materialTheme.accent = "Tomato";
         workbench.colorCustomizations = (
           builtins.fromJSON (builtins.readFile ./workbench.colorCustomizations.jsonc)
+        );
+        editor.tokenColorCustomizations = (
+          builtins.fromJSON (builtins.readFile ./editor.tokenColorCustomizations.jsonc)
         );
         workbench.sideBar.location = "right";
         editor.fontLigatures = "'ss01', 'ss03', 'ss05', 'ss07', 'ss10'";
