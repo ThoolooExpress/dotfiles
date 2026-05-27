@@ -34,14 +34,11 @@
       ];
       userSettings = {
         # Visual
-        workbench.colorTheme = "Monokai Dimmed";
+        workbench.colorTheme = "Dark+";
         editor.fontFamily = "FiraCode Nerd Font Mono";
         materialTheme.accent = "Tomato";
         workbench.colorCustomizations = (
           builtins.fromJSON (builtins.readFile ./workbench.colorCustomizations.jsonc)
-        );
-        editor.tokenColorCustomizations = (
-          builtins.fromJSON (builtins.readFile ./editor.tokenColorCustomizations.jsonc)
         );
         workbench.sideBar.location = "right";
         editor.fontLigatures = "'ss01', 'ss03', 'ss05', 'ss07', 'ss10'";
