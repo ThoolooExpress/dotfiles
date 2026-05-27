@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  modules,
   ...
 }:
 
@@ -13,7 +14,7 @@
     # vendor channel rather than Nix.
     package = null;
 
-    context = import ../../lib/agents;
+    context = modules.lib.agentsMd;
     hooksDir = ./hooks;
 
     settings = {
