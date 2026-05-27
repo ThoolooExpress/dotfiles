@@ -18,11 +18,6 @@
                 "settings": { "foreground": "#D0B344" }
             },
             {
-                "name": "Protobuf: built-in scalar field types (string, int32, ...)",
-                "scope": "support.type.field.proto",
-                "settings": { "foreground": "#9872A2" }
-            },
-            {
                 "name": "Protobuf: enum values",
                 "scope": "entity.name.type.enum-value.proto",
                 "settings": { "foreground": "#8080FF" }
