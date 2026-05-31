@@ -12,7 +12,7 @@ let
   enrollLines = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (
       _name: uuid:
-      ''sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="0+7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/disk/by-uuid/${uuid}''
+      ''sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="0+2+7+11+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/disk/by-uuid/${uuid}''
     ) cfg.devices
   );
 
