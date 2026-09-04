@@ -96,11 +96,12 @@ Read-only VCS: fine anytime.
 
 Mutating VCS: only when integral to task or user says "commit".
 
-Push to github: only when user says "push".
+Push to github: only when integral to task or user says "push".
 
 Otherwise: edit files, leave committing to user.
 
-Tests that require commit / push to run: exception.
+Exception: Tests that require commit / push to run, working in ephemeral dev
+container / workspace.
 
 </when_to_use>
 
@@ -189,6 +190,10 @@ existing.
   - Option 2: Run under tmux.
 - Async execution: Run long commands under tmux, continue work in parallel /
   check in on progress as they run.
+- Scope find / grep commands carefully. Large scopes such as "/" or "$HOME" will
+  likely run very slowly and may get blocked by security policies. Make a few
+  educated guesses as to where a file might be before resorting to a large-scale
+  find command.
 
 </running_commands>
 
