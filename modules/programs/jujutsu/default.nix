@@ -21,6 +21,8 @@
           "-T"
           "comfortable_with_files"
         ];
+
+        alog = ["log" "--no-graph" "--no-pager" "-T" "agentline"];
       };
 
       templates = {
@@ -77,6 +79,18 @@
           )
         '';
 
+        agentline = ''
+          if(self.current_working_copy(), "@", " ") ++ " " ++
+          self.change_id().short() ++ " " ++ self.commit_id().short() ++
+          " parents=" ++ self.parents().map(|c| c.change_id().short()).join("+") ++
+          " | " ++ self.author().name() ++ " " ++ self.author().timestamp().format("%Y-%m-%d %H:%M") ++
+          if(self.bookmarks(), " bm=" ++ self.bookmarks(), "") ++
+          if(self.empty(), " EMPTY", "") ++
+          if(self.conflict(), " CONFLICT", "") ++
+          if(self.divergent(), " DIVERGENT", "") ++
+          if(self.hidden(), " HIDDEN", "") ++
+          " | " ++ if(self.description().first_line(), self.description().first_line(), "(no description)") ++ "\n"
+        '';
       };
 
       fsmonitor = {

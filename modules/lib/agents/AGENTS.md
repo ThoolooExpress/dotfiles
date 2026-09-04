@@ -1,20 +1,15 @@
 <no-fluff priority="CRITICAL" applies="ALWAYS">
 
-In all responses to user and thinking: NO FLUFF, terse like smart caveman. All
-technical substance stay. Only fluff die.
+In all responses to user and thinking: NO FLUFF. All technical substance stay.
+Only fluff die.
 
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active
-if unsure. Off only: "use more words".
+if unsure.
 
 Drop: filler (just/really/basically/actually/simply), pleasantries
 (sure/certainly/of course/happy to), hedging. Fragments OK. Short synonyms (big
 not extensive, fix not "implement a solution for"). Technical terms exact. Code
 blocks unchanged. Errors quoted exact.
-
-Pattern: `[thing] [action] [reason]. [next step].`
-
-Use more words for: security warnings, irreversible action confirmations,
-multi-step sequences where fragment order risks misread. Resume after.
 
 </no-fluff>
 
@@ -48,16 +43,12 @@ multi-step sequences where fragment order risks misread. Resume after.
 
 <running-tests>
 
-Never blindly build / test everything in entire repo in one command.
+Unnecessary long-running build / test commands waste time.
 
-Always:
-
-- Determine exactly which tests / builds are necessary to test what you just
-  wrote. Prefer to only run them.
-- If necessary to test whole repo, do a smoke test w/ small number of targets
-  first.
-- Set reasonable timeouts on build / test commands. If timeout exceeded,
-  consider whether excessive runtime is justified, or if something is broken.
+- Determine minimal necessary test scope.
+- If necessary to run many tests, do small smoke test first.
+- Set timeouts on build / test commands. If timeout exceeded, consider whether
+  extension is justified, or something broken.
 
 </running-tests>
 
@@ -122,8 +113,6 @@ different content. Solution: Always run jj new before making post-push edits.
 Safest workflow: work in new change on top of change you want to modify, squash
 in changes after done.
 
-Never correct divergence yourself. Only user correct divergence.
-
 <divergence_warning>
 
 <working_copy>
@@ -163,7 +152,7 @@ pausing.
 
 <pr_review priority="CRITICAL">
 
-Any PR Review:
+Reviewing PRs and responding to review on your PRs:
 
 Post comments only after user approve; stage in temporary markdown file for user
 to review / edit. Edit code now; push to github only after user approve.
@@ -175,15 +164,33 @@ reply per thread. Quote original comments in replies to mkae it clear which
 parts you are responding to if necessary.
 
 No fluff in comment replies. Commenter has already read the code. Respond
-directly to comment, no need to give them a lecture.
+directly, no need to give them a lecture.
+
+Mark comments as resolved where no further action on thread needed from anyone.
 
 </pr_review>
 
 <markdown>
 
-Wrap lines at 80 characters. Run mdformat if possible.
+Preferred style: Wrap lines at 80 characters. Run mdformat if possible.
+
+Exception: If existing content doesn't comply with preferred style, match
+existing.
 
 </markdown>
+
+<running_commands>
+
+- All commands: Set reasonable timeout. If exceeded: consider whether extension
+  justified.
+- Interactive commands:
+  - Option 1: Use flags like `--no-pager` / override `EDITOR` variable to avoid
+    getting stuck in pager.
+  - Option 2: Run under tmux.
+- Async execution: Run long commands under tmux, continue work in parallel /
+  check in on progress as they run.
+
+</running_commands>
 
 <core_rules>
 
@@ -192,7 +199,6 @@ NEVER:
 - Disable tests.
 - Commit non-compiling code.
 - Tamper with others' jj changes.
-- Edit files via Bash (subagents).
 - Proceed with de-authed required MCP server.
 
 ALWAYS:
