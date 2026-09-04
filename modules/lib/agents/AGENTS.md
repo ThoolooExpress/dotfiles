@@ -83,7 +83,7 @@ Key commands:
 - `jj new`: new empty commit on top. Start fresh work.
 - `jj describe -m "msg"`: set message on current change.
 - `jj squash`: merge current change into parent.
-- `jj log`: show commit DAG.
+- `jj alog`: show commit DAG in an agent-friendly format.
 
 Conflicts non-blocking: rebase succeeds even with conflicts. Stored as state in
 commit, not file markers. Fix later: `jj new` → resolve → `jj squash`.
