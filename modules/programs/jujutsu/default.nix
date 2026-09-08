@@ -55,7 +55,7 @@
             .replace(regex:"[[:^word:]]", "-")
             .replace(regex:"-+", "-")
             .replace(regex:"^-|-$", "")
-            .substr(0, 24)
+            .substr(0, 17)
             .replace(regex:"-$", "")
         '';
 
@@ -76,6 +76,7 @@
             "richard.morrill",
             jira_issue_prefix(description),
             first_line_suffix(description),
+            self.change_id().short(6),
           )
         '';
 
