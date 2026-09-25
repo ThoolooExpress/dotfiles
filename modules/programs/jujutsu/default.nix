@@ -52,10 +52,11 @@
             .first_line()
             .replace(regex:"^[?[[:upper:]]+-[[:digit:]]+]?[[:blank:]]+", "")
             .lower()
+            .replace(regex:"^(add|fix|update)([[:blank:]]+(a|an|the))?[:[:blank:]]+", "")
             .replace(regex:"[[:^word:]]", "-")
             .replace(regex:"-+", "-")
             .replace(regex:"^-|-$", "")
-            .substr(0, 17)
+            .substr(0, 23)
             .replace(regex:"-$", "")
         '';
 
@@ -73,7 +74,7 @@
         my_git_push_bookmark = ''
           separate(
             "/",
-            "richard.morrill",
+            "r.morrill",
             jira_issue_prefix(description),
             first_line_suffix(description),
             self.change_id().short(6),
