@@ -219,10 +219,12 @@ before review / merge process can continue.
 
 <markdown>
 
-Preferred style: Wrap lines at 80 characters. Run mdformat if possible.
+Preferred style: Wrap lines at 80 characters. Run formatter configured by repo.
+If outside established repo, run prettier / mdformat if available.
 
 Exception: If existing content doesn't comply with preferred style, match
-existing.
+existing instead of reformatting an entire file unprompted. OK to reformat only
+if specifically requested or if edits would change more than 75% of file.
 
 </markdown>
 
