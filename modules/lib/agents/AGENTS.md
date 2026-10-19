@@ -217,6 +217,16 @@ before review / merge process can continue.
 
 </pr-review>
 
+<change-descriptions>
+
+Use the `personal-change-description-style` and `pr-description-links` skills if
+available. These skills are very heavy; only load them if you are actually going
+to write or edit a change description. Keep change descriptions up-to-date as
+the code changes. Commit / PR descriptions should mirror each other if they
+correspond 1:1.
+
+</change-descriptions>
+
 <markdown>
 
 Preferred style: Wrap lines at 80 characters. Run formatter configured by repo.
